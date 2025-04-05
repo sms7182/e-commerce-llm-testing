@@ -5,16 +5,13 @@ import requests
 db = pd.read_csv("product.csv")
 
 
-API_KEY = "" 
-URL = ""
-
 def detect_intent(query):
     headers = {
         "Authorization": f"Bearer {API_KEY}",
         "Content-Type": "application/json"
     }
     payload = {
-        "model": "",
+        "model": "gpt-4o-mini",
         "messages": [
             {
                 "role": "system",
@@ -25,7 +22,7 @@ def detect_intent(query):
                 "content": f"مشتری نوشته: '{query}'. فقط یه کلمه کلیدی بگو."
             }
         ],
-        "max_tokens": 10
+        "max_tokens": 200
     }
     response = requests.post(URL, headers=headers, json=payload)
     return response.json()["choices"][0]["message"]["content"].strip()
